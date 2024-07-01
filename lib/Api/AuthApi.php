@@ -2112,8 +2112,15 @@ class AuthApi
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
 
+        $authHeaders = [];
+        $access_token = $this->config->getAccessToken();
+        if ($access_token) {
+            $authHeaders['Authorization'] = 'Bearer ' . $access_token;
+        }
+
         $headers = array_merge(
             $defaultHeaders,
+            $authHeaders,
             $headerParams,
             $headers
         );
